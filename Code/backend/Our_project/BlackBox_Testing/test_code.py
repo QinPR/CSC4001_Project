@@ -13,7 +13,7 @@ def test():
     req = request("POST")
     li = []
     for i in range(0, 100):
-        code = views.code()
+        code = views.encode()
         if (code in li):
             return 0
         li.append(code)

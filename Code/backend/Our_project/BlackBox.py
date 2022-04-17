@@ -5,6 +5,9 @@ from .BlackBox_Testing import test_logout
 from .BlackBox_Testing import test_update
 from .BlackBox_Testing import test_sendEmail
 from .BlackBox_Testing import test_SetQuestion
+from .BlackBox_Testing import test_SearchQuestion
+from .BlackBox_Testing import test_mainpage
+from .BlackBox_Testing import test_my_follow
 
 class request:
     POST = {}
@@ -15,7 +18,7 @@ class request:
 
 def test():
     data = {}
-
+    
     # 1. test views.code()
     if (test_code.test() == 1):
         data["test-code()"] = "PASS"
@@ -58,6 +61,23 @@ def test():
     else:
         data["test_SetQuestion()"] = "FAILED"
 
+    # 8. test SearchQuestion()
+    if (test_SearchQuestion.test() == 1):
+        data["test SearchQuestion()"] = "PASS"
+    else:
+        data["test SearchQuestion()"] = "FAILED"
+
+    # 9. test mainpage()
+    if (test_mainpage.test() == 1):
+        data["test Mainpage()"] = "PASS"
+    else:
+        data["test Mainpage()"] = "FAILED"
+
+    # 10. test my_follow()
+    if (test_my_follow.test() == 1):
+        data["test my_follow()"] = "PASS"
+    else:
+        data["test my_follow()"] = "FAILED"
     return data
 
     

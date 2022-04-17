@@ -30,6 +30,7 @@ from .models import sub_group
 from .models import file
 import hashlib
 import markdown
+from . import BlackBox
 
 # 重写python的datetime类型
 class ComplexEncoder(json.JSONEncoder):
@@ -121,7 +122,7 @@ def register(request):
         #1.当前用户名是否可用
         #1.插入数据[暂时明文处理]
     data = {
-        'isRegister': 1
+        'isRegister': 0
     }# control flag
 
     if request.method == 'POST':
@@ -138,7 +139,8 @@ def register(request):
             return HttpResponse(json.dumps(data), content_type='application/json')
 
         #return successful information
-        return HttpResponse(json.dumps(data), content_type='application/json')
+        data['isRegister'] = 1
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 def verify(request):
     data = {
@@ -515,25 +517,21 @@ def searchQuestion(request):
 
         else:   #CSC3150|project1   sub_group_type and group_type
             scopeItem = scope.split('|')
-            print (scopeItem)
             groupType = scopeItem[0]
             subGroupType = scopeItem[1]
             sub_group_type = sub_group.objects.filter(sub_group_name = subGroupType, group_name = groupType).values()[0]['id']
-            print(sub_group_type)
 
             DBScope = []
             #get the db values
             DBtype = Blog_Questions.objects.values('group_type')
             for type in DBtype:   
                 DBScope.append(type['group_type'])
-            print(DBScope)
 
             DBsub = []
             #get the db values
             DBsubid = Blog_Questions.objects.values('sub_group_type')
             for subid in DBsubid:   
                 DBsub.append(subid['sub_group_type'])
-            print(DBsub)
 
             # start to search
             for DBitem in DBlist:

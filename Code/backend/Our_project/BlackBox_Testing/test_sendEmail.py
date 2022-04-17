@@ -17,7 +17,7 @@ class request:
 def normal_test1():
     li = []
     for i in range(0, 15):
-        code = views.code()
+        code = views.encode()
         if (code in li):
             return 0
         li.append(code)
